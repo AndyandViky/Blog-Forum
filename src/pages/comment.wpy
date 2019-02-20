@@ -1,0 +1,19 @@
+<style lang="less">
+</style>
+<template>
+  <view @tap = 'redict1'>跳转2</view>
+</template>
+
+<script lang="ts">
+  import wepy from 'wepy'
+  export default class comment extends wepy.page {
+    config = {
+      navigationBarTitleText: '评论'
+    }
+    methods = {
+    }
+    onload() {
+    }
+  }
+
+</script>
