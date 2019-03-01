@@ -1,0 +1,72 @@
+<style lang="scss">
+.search {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  display: -webkit-flex; /* Safari */
+  .s_input_b, .s_button {
+    height: 70rpx;
+    margin: 20rpx 10rpx;
+    border: none;
+  }
+  .s_input_b {
+    padding-left: 20rpx;
+    border-radius: 10rpx;
+    flex-grow: 5;
+    background-color: rgba(240, 240, 240, 0.959);
+    margin-left: 40rpx;
+    display: flex;
+    .s_input {
+      height: 70rpx;
+      width: 90%;
+      flex-grow: 6;
+    }
+    >icon {
+      flex-grow: 1;
+      text-align: center;
+      line-height: 96rpx;
+      padding-right: 20rpx;
+    }
+  }
+  .s_button {
+    flex-grow: 3;
+    width: 40rpx;
+    margin-right: 40rpx;
+    line-height: 70rpx;
+    color: rgb(30, 82, 223);
+  }
+}
+</style>
+<template>
+  <view class="search">
+    <view class="s_input_b">
+      <icon type="search" size="12"></icon>
+      <input placeholder="请输入文章名..." class="s_input fz24" @blur="mobileInput" maxlength="20"/>
+    </view>
+    <button class="s_button fz24" @tap="submit">搜索</button>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Search extends wepy.component {
+    data = {
+      articleName: '',
+      bLoding: false,
+    }
+    methods = {
+      submit() {
+        if(!this.articleName) global.tip.alert('请输入文章名');
+        else {
+          this.$emit('request-search', this.articleName);
+        }
+      },
+      mobileInput(data) {
+        this.articleName = data.detail.value;
+      }
+    }
+    events = {
+    }
+  }
+
+</script>

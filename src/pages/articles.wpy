@@ -1,21 +1,36 @@
 <style lang="scss">
+.container{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
 </style>
 <template>
-  <view @tap = 'redict'>跳转1</view>
+  <view class="container">
+    <search></search>
+    <topBar></topBar>
+    <repeat></repeat>
+  </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import search from '../components/search'
+  import topBar from '../components/topBar'
   export default class Articles extends wepy.page {
     config = {
       navigationBarTitleText: '博客论坛'
     }
     components = {
+      search,
+      topBar,
     }
 
     mixins = []
 
-    data = {}
+    data = {
+      articleList: [],
+    }
 
     computed = {
     }
@@ -29,6 +44,9 @@
     }
 
     events = {
+      'request-search': (articleName) => {
+        console.log(articleName);
+      }
     }
 
     onLoad() {

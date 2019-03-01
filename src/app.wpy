@@ -4,8 +4,8 @@
 </style>
 
 <script>
-import wepy from 'wepy'
-import 'wepy-async-function'
+import wepy from 'wepy';
+import 'wepy-async-function';
 import tip from './utils/tip';
 
 export default class extends wepy.app {
@@ -14,7 +14,7 @@ export default class extends wepy.app {
       'pages/articles',
       'pages/article',
       'pages/comments',
-      'pages/github',
+      'pages/github'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -24,33 +24,59 @@ export default class extends wepy.app {
       enablePullDownRefresh: false,
       backgroundColor: '#EFEFEF'
     },
-    "tabBar": {
-      "color": "#999999",
-      "selectedColor": "#ff6a3c",
-      "backgroundColor": "#ffffff",
-      "borderStyle": "black",
-      "list": [{
-        "pagePath": "pages/articles",
-        "text": "首页",
-        "iconPath": "static/images/icon_home.png",
-        "selectedIconPath": "static/images/icon_home_active.png"
-      },{
-        "pagePath": "pages/github",
-        "text": "github",
-        "iconPath": "static/images/icon_classify.png",
-        "selectedIconPath": "static/images/icon_classify_active.png"
-      }]
+    tabBar: {
+      color: '#999999',
+      selectedColor: '#ff6a3c',
+      backgroundColor: '#ffffff',
+      borderStyle: 'black',
+      list: [
+        {
+          pagePath: 'pages/articles',
+          text: '首页',
+          iconPath: 'static/images/icon_home.png',
+          selectedIconPath: 'static/images/icon_home_active.png'
+        },
+        {
+          pagePath: 'pages/github',
+          text: 'github',
+          iconPath: 'static/images/icon_classify.png',
+          selectedIconPath: 'static/images/icon_classify_active.png'
+        }
+      ]
     }
-  }
+  };
 
   globalData = {
     userInfo: null
-  }
+  };
 
-  constructor () {
-    super()
-    this.use('requestfix')
-    this.use('promisify')
+  constructor() {
+    super();
+    this.use('requestfix');
+    this.use('promisify');
+    this.intercept('request', {
+      // 发出请求时的回调函数
+      config(p) {
+        // 对所有request请求中的OBJECT参数对象统一附加时间戳属性
+        p.timestamp = +new Date();
+        console.log('config request: ', p);
+        // 必须返回OBJECT参数对象，否则无法发送请求到服务端
+        return p;
+      },
+
+      success(p) {
+        return p;
+      },
+
+      fail(p) {
+        global.tip.error(p);
+        return p;
+      },
+
+      complete(p) {
+        console.log('request complete: ', p);
+      }
+    });
   }
 
   onLaunch() {
@@ -58,16 +84,16 @@ export default class extends wepy.app {
   }
 
   getUserInfo(cb) {
-    const that = this
+    const that = this;
     if (this.globalData.userInfo) {
-      return this.globalData.userInfo
+      return this.globalData.userInfo;
     }
     wepy.getUserInfo({
-      success (res) {
-        that.globalData.userInfo = res.userInfo
-        cb && cb(res.userInfo)
+      success(res) {
+        that.globalData.userInfo = res.userInfo;
+        cb && cb(res.userInfo);
       }
-    })
+    });
   }
 }
 </script>
