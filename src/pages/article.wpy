@@ -1,14 +1,14 @@
 <style lang="scss">
 </style>
 <template>
-  <view></view>
+  <view>跳转12</view>
 </template>
 
 <script>
   import wepy from 'wepy'
-  export default class Github extends wepy.page {
+  export default class Article extends wepy.page {
     config = {
-      navigationBarTitleText: '个人项目'
+      navigationBarTitleText: '文章详情'
     }
     methods = {
     }

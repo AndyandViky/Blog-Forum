@@ -1,12 +1,6 @@
 <style lang="scss">
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
+@import './styles/base.scss';
+@import './styles/icon.scss';
 </style>
 
 <script>
@@ -17,15 +11,35 @@ import tip from './utils/tip';
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/blogList',
-      'pages/comment',
+      'pages/articles',
+      'pages/article',
+      'pages/comments',
       'pages/github',
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      enablePullDownRefresh: false,
+      backgroundColor: '#EFEFEF'
+    },
+    "tabBar": {
+      "color": "#999999",
+      "selectedColor": "#ff6a3c",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [{
+        "pagePath": "pages/articles",
+        "text": "首页",
+        "iconPath": "static/images/icon_home.png",
+        "selectedIconPath": "static/images/icon_home_active.png"
+      },{
+        "pagePath": "pages/github",
+        "text": "github",
+        "iconPath": "static/images/icon_classify.png",
+        "selectedIconPath": "static/images/icon_classify_active.png"
+      }]
     }
   }
 
@@ -36,6 +50,7 @@ export default class extends wepy.app {
   constructor () {
     super()
     this.use('requestfix')
+    this.use('promisify')
   }
 
   onLaunch() {

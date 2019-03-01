@@ -6,7 +6,7 @@
 
 <script>
   import wepy from 'wepy'
-  export default class BlogList extends wepy.page {
+  export default class Articles extends wepy.page {
     config = {
       navigationBarTitleText: '博客论坛'
     }
@@ -32,7 +32,6 @@
     }
 
     onLoad() {
-      global.tip.loading();
     }
   }
 </script>
