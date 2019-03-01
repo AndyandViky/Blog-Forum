@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="scss">
 </style>
 <template>
   <view @tap = 'redict'>跳转1</view>
@@ -6,7 +6,7 @@
 
 <script>
   import wepy from 'wepy'
-  export default class Index extends wepy.page {
+  export default class BlogList extends wepy.page {
     config = {
       navigationBarTitleText: '博客论坛'
     }
@@ -32,6 +32,7 @@
     }
 
     onLoad() {
+      global.tip.loading();
     }
   }
 </script>

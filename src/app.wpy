@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="scss">
 .container {
   height: 100%;
   display: flex;
@@ -12,13 +12,14 @@
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
-
+import tip from './utils/tip';
 
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index',
+      'pages/blogList',
       'pages/comment',
+      'pages/github',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -38,6 +39,7 @@ export default class extends wepy.app {
   }
 
   onLaunch() {
+    global.tip = tip;
   }
 
   getUserInfo(cb) {
