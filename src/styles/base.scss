@@ -12,6 +12,12 @@ page {
   background: #ffffff;
 }
 
+.hidden_text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .no_data {
   font-size: 40rpx;
   width: 100%;

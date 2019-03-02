@@ -1,55 +1,90 @@
 <style lang="scss">
-.container{
+.container {
   position: absolute;
   top: 0px;
   width: 100%;
+  height: 100%;
+  .article_list{
+    background-color: #EFEFEF;
+    height: 100%;
+    >.a_item{
+      margin: 20rpx 0;
+      background-color: #ffffff;
+    }
+  }
 }
 </style>
 <template>
   <view class="container">
     <search></search>
-    <topBar></topBar>
-    <repeat></repeat>
+    <topBar @changeBar.user="changeBar"></topBar>
+    <view class="article_list">
+      <repeat for="{{articles}}" index="index" key="index" item="item">
+        <articleList class="a_item" :article.sync="item"></articleList>
+        <articleAdv class="a_item" wx:if="{{index % 4 === 0 && index !== 0}}"></articleAdv>
+      </repeat>
+    </view>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import search from '../components/search'
-  import topBar from '../components/topBar'
-  export default class Articles extends wepy.page {
-    config = {
-      navigationBarTitleText: '博客论坛'
-    }
-    components = {
-      search,
-      topBar,
-    }
+import wepy from 'wepy';
+import search from '../components/search';
+import topBar from '../components/topBar';
+import articleList from '../components/articleList';
+import articleAdv from '../components/articleAdv';
+import { TOPTITLE } from '../utils/constant';
+export default class Articles extends wepy.page {
+  config = {
+    navigationBarTitleText: '博客论坛'
+  };
+  components = {
+    search,
+    topBar,
+    articleList,
+    articleAdv
+  };
 
-    mixins = []
+  mixins = [];
 
-    data = {
-      articleList: [],
-    }
-
-    computed = {
-    }
-
-    methods = {
-      redict() {
-        wepy.navigateTo({
-          url: 'comment'
-        })
+  data = {
+    articles: [
+      {
+        name: '1',
+        content: '123',
+        thumb: '1'
+      },
+      {
+        name: '1',
+        content: '123',
+        thumb: '1'
+      },
+      {
+        name: '1',
+        content: '123',
+        thumb: '1'
       }
-    }
+    ]
+  };
 
-    events = {
-      'request-search': (articleName) => {
-        console.log(articleName);
-      }
-    }
+  computed = {};
 
-    onLoad() {
+  methods = {
+    redict() {
+      wepy.navigateTo({
+        url: 'comment'
+      });
+    },
+    async changeBar(index) {
+      let title = TOPTITLE[index];
+      // 发起获取数据请求
     }
-  }
+  };
+
+  events = {
+    'request-search': articleName => {
+      console.log(articleName);
+    }
+  };
+}
 </script>

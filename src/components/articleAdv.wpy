@@ -1,0 +1,13 @@
+<style lang="scss">
+</style>
+<template>
+  <view class="">
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class articleAdv extends wepy.component {
+    
+  }
+</script>

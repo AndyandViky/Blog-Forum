@@ -1,17 +1,44 @@
 <style lang="scss">
+.top_bar{
+  display: flex;
+  flex-direction: row;
+  height: 70rpx;
+  .top_item{
+    flex-grow: 1;
+    text-align: center;
+    line-height: 75rpx;
+    >.item_text{
+      padding: 10rpx 40rpx;
+    }
+    >.click_state{
+      border-bottom: 2px solid rgb(82, 120, 200);
+      color: rgb(82, 120, 200);
+    }
+  }
+}
 </style>
 <template>
-  <view>
-    
+  <view class="top_bar">
+    <repeat for="{{topTitle}}" key="index" index="index" item="item">
+      <view class="top_item">
+        <text class="item_text {{index === currentIndex ? 'click_state' : ''}}" @tap="changeBar({{index}})">{{item}}</text>
+      </view>
+    </repeat>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
   export default class TopBar extends wepy.component {
-    methods = {
+    data = {
+      topTitle: ['推荐', '热榜', '视频'],
+      currentIndex: 0,
     }
-    onload() {
+    methods = {
+      changeBar(index) {
+        this.currentIndex = index;
+        this.$emit('changeBar', index);
+      }
     }
   }
 

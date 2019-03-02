@@ -34,6 +34,7 @@
     margin-right: 40rpx;
     line-height: 70rpx;
     color: rgb(30, 82, 223);
+    font-size: 34rpx;
   }
 }
 </style>
@@ -43,7 +44,7 @@
       <icon type="search" size="12"></icon>
       <input placeholder="请输入文章名..." class="s_input fz24" @blur="mobileInput" maxlength="20"/>
     </view>
-    <button class="s_button fz24" @tap="submit">搜索</button>
+    <button class="s_button" @tap="submit" plain="true">搜索</button>
   </view>
 </template>
 

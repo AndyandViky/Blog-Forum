@@ -15,8 +15,14 @@ export const USER_INFO = "userInfo";
  * @type {String}
  */
 export const SYSTEM_INFO = "systemInfo";
-
-
 export const ADDRESS_ID = "addressId";
-
 export const SEL_CLASS_CODE = "selClassCode";
+
+/**
+ * 顶层标题栏状态
+ */
+export const TOPTITLE = [
+  'recommond',
+  'hot',
+  'vedio',
+]
