@@ -4,10 +4,10 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  .article_list{
-    background-color: #EFEFEF;
+  .article_list {
+    background-color: #efefef;
     height: 100%;
-    >.a_item{
+    > .a_item {
       margin: 20rpx 0;
       background-color: #ffffff;
     }
@@ -50,19 +50,70 @@ export default class Articles extends wepy.page {
   data = {
     articles: [
       {
-        name: '1',
-        content: '123',
-        thumb: '1'
+        id: 0,
+        name: 'flex-shrink属性',
+        content:
+          '如果所有项目的flex-grow属性都项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。',
+        thumb: '',
+        meta: {
+          likes: 5000,
+          view: 2000
+        }
       },
       {
-        name: '1',
-        content: '123',
-        thumb: '1'
+        id: 1,
+        name: 'flex-shrink属性',
+        content:
+          '如果所有项目的flex-grow属性都项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。',
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000,
+          view: 2000
+        }
       },
       {
-        name: '1',
-        content: '123',
-        thumb: '1'
+        id: 2,
+        name: 'flex-shrink属性',
+        content:
+          '如果所有项目的flex-grow属性都项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。',
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000,
+          view: 2000
+        }
+      },
+      {
+        id: 2,
+        name: 'flex-shrink属性',
+        content:
+          '如果所有项目的flex-grow属性都项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。',
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000,
+          view: 2000
+        }
+      },
+      {
+        id: 2,
+        name: 'flex-shrink属性',
+        content:
+          '如果所有项目的flex-grow属性都项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。',
+        thumb: '',
+        meta: {
+          likes: 5000,
+          view: 2000
+        }
+      },
+      {
+        id: 2,
+        name: 'flex-shrink属性',
+        content:
+          '如果所有项目的flex-grow属性都项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们项目的flex-grow属性都为1，则它们为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。',
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000,
+          view: 2000
+        }
       }
     ]
   };
@@ -70,11 +121,6 @@ export default class Articles extends wepy.page {
   computed = {};
 
   methods = {
-    redict() {
-      wepy.navigateTo({
-        url: 'comment'
-      });
-    },
     async changeBar(index) {
       let title = TOPTITLE[index];
       // 发起获取数据请求

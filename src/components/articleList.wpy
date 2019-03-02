@@ -2,29 +2,59 @@
 .article_item{
   width: 100%;
   height: 300rpx;
-  display: flex;
-  flex-direction: column;
-  >.article_name{
-    background-color: red;
-    flex-grow: 2;
-  }
-  >.article_content{
-    flex-grow: 4;
-    background-color: green;
-  }
-  >.article_info{
-    flex-grow: 2;
-    background-color: #ccc;
+  .item_box{
+    width: 90%;
+    margin-left: 5%;
+    >.article_name{
+      height: 70rpx;
+      line-height: 70rpx;
+      color: black;
+      font-weight: bold;
+      font-size: 35rpx;
+    }
+    >.article_content{
+      height: 140rpx;
+      line-height: 48rpx;
+      color: rgb(102, 100, 100);
+      display: flex;
+      flex-direction: row;
+      >.article_thumb{
+        width: 30%;
+        height: 100%;
+      }
+      >.article_content_1{
+        width: 70%;
+      }
+    }
+    >.article_info{
+      height: 80rpx;
+      display: flex;
+      flex-direction: row;
+      line-height: 80rpx;
+    }
   }
 }
 </style>
 <template>
   <view class="article_item">
-    <view class="article_name hidden_text"></view>
-    <view class="article_content hidden_text">{{article.content}}</view>
-    <view class="article_info">
-      <view class="like_count"></view>
-      <view class="comment_count"></view>
+    <view class="item_box">
+      <view class="article_name hidden_text_singel">
+        <navigator hover-class="none" url="article?id={{artilce.id}}"><text>{{article.name}}</text></navigator>
+      </view>
+      <view class="article_content">
+        <view class="{{article.thumb !== '' ? 'article_content_1' : ''}}">
+          <text class="hidden_text_m_3">{{article.content}}</text>
+        </view>
+        <image class="article_thumb" wx:if="{{article.thumb !== ''}}" src="{{article.thumb}}"></image>
+      </view>
+      <view class="article_info c999">
+        <view class="like_count fz24">
+          <text>{{article.meta.likes}}赞同　·</text>
+        </view>
+        <view class="comment_count fz24">
+          <text>　{{article.meta.view}}评论</text>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -36,8 +66,14 @@
       article: {
         type: Object,
         default: {
+          id: -1,
           name: '',
           content: '',
+          thumb: 0,
+          meta: {
+            likes: 5000,
+            view: 2000,
+          }
         },
       }
     }
