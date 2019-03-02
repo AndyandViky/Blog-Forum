@@ -1,32 +1,33 @@
 <style lang="scss">
-.article_item{
+.article_item {
   width: 100%;
   height: 300rpx;
-  .item_box{
+  .item_box {
     width: 90%;
     margin-left: 5%;
-    >.article_name{
+    > .article_name {
       height: 70rpx;
       line-height: 70rpx;
       color: black;
       font-weight: bold;
       font-size: 35rpx;
     }
-    >.article_content{
+    > .article_content {
       height: 140rpx;
       line-height: 48rpx;
       color: rgb(102, 100, 100);
       display: flex;
       flex-direction: row;
-      >.article_thumb{
+      > .article_thumb {
         width: 30%;
         height: 100%;
+        background-color: #eeeeee;
       }
-      >.article_content_1{
+      > .article_content_1 {
         width: 70%;
       }
     }
-    >.article_info{
+    > .article_info {
       height: 80rpx;
       display: flex;
       flex-direction: row;
@@ -37,47 +38,53 @@
 </style>
 <template>
   <view class="article_item">
-    <view class="item_box">
-      <view class="article_name hidden_text_singel">
-        <navigator hover-class="none" url="article?id={{artilce.id}}"><text>{{article.name}}</text></navigator>
-      </view>
-      <view class="article_content">
-        <view class="{{article.thumb !== '' ? 'article_content_1' : ''}}">
-          <text class="hidden_text_m_3">{{article.content}}</text>
+    <navigator hover-class="none" url="article?id={{artilce.id}}">
+      <view class="item_box">
+        <view class="article_name hidden_text_singel">
+          <text>{{article.name}}</text>
         </view>
-        <image class="article_thumb" wx:if="{{article.thumb !== ''}}" src="{{article.thumb}}"></image>
-      </view>
-      <view class="article_info c999">
-        <view class="like_count fz24">
-          <text>{{article.meta.likes}}赞同　·</text>
+        <view class="article_content">
+          <view class="{{article.thumb !== '' ? 'article_content_1' : ''}}">
+            <text class="hidden_text_m_3">{{article.content}}</text>
+          </view>
+          <image
+            mode="scaleToFill"
+            class="article_thumb"
+            wx:if="{{article.thumb !== ''}}"
+            src="{{article.thumb}}"
+            lazy-load="true"
+          ></image>
         </view>
-        <view class="comment_count fz24">
-          <text>　{{article.meta.view}}评论</text>
+        <view class="article_info c999">
+          <view class="like_count fz24">
+            <text>{{article.meta.likes}}赞同 ·</text>
+          </view>
+          <view class="comment_count fz24">
+            <text>{{article.meta.view}}评论</text>
+          </view>
         </view>
       </view>
-    </view>
+    </navigator>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  export default class articleList extends wepy.component {
-    props = {
-      article: {
-        type: Object,
-        default: {
-          id: -1,
-          name: '',
-          content: '',
-          thumb: 0,
-          meta: {
-            likes: 5000,
-            view: 2000,
-          }
-        },
+import wepy from 'wepy';
+export default class ArticleList extends wepy.component {
+  props = {
+    article: {
+      type: Object,
+      default: {
+        id: -1,
+        name: '',
+        content: '',
+        thumb: 0,
+        meta: {
+          likes: 5000,
+          view: 2000
+        }
       }
     }
-    onLoad() {
-    }
-  }
+  };
+}
 </script>

@@ -17,11 +17,11 @@ export default class extends wepy.app {
       'pages/github'
     ],
     window: {
-      backgroundTextStyle: 'light',
+      backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black',
-      enablePullDownRefresh: false,
+      enablePullDownRefresh: true,
       backgroundColor: '#EFEFEF'
     },
     tabBar: {

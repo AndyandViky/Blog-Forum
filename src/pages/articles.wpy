@@ -4,13 +4,17 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  .article_list {
+  .a_item {
+    margin: 20rpx 0;
+    background-color: #ffffff;
+  }
+  > .article_list {
     background-color: #efefef;
     height: 100%;
-    > .a_item {
-      margin: 20rpx 0;
-      background-color: #ffffff;
-    }
+  }
+  > .hot_articles {
+    background-color: #efefef;
+    height: 100%;
   }
 }
 </style>
@@ -18,10 +22,20 @@
   <view class="container">
     <search></search>
     <topBar @changeBar.user="changeBar"></topBar>
-    <view class="article_list">
+    <view class="article_list" wx:if="{{ currentBar === topTitle[0] }}">
       <repeat for="{{articles}}" index="index" key="index" item="item">
         <articleList class="a_item" :article.sync="item"></articleList>
-        <articleAdv class="a_item" wx:if="{{index % 4 === 0 && index !== 0}}"></articleAdv>
+        <articleAdv class="a_item" :adv.sync="advs[0]" wx:if="{{ index % 4 === 0 && index !== 0 }}"></articleAdv>
+      </repeat>
+    </view>
+    <view class="hot_articles" wx:if="{{ currentBar === topTitle[1] }}">
+      <repeat for="{{hotArticles}}" index="index" key="index" item="item">
+        <hotArticle class="a_item" :hot="item"></hotArticle>
+      </repeat>
+    </view>
+    <view class="vedio" wx:if="{{ currentBar === topTitle[2] }}">
+      <repeat for="{{videos}}" index="index" key="index" item="item">
+        <personalVideo :video.sync="item"></personalVideo>
       </repeat>
     </view>
   </view>
@@ -33,6 +47,8 @@ import search from '../components/search';
 import topBar from '../components/topBar';
 import articleList from '../components/articleList';
 import articleAdv from '../components/articleAdv';
+import hotArticle from '../components/hotArticle';
+import personalVideo from '../components/personalVideo';
 import { TOPTITLE } from '../utils/constant';
 export default class Articles extends wepy.page {
   config = {
@@ -42,8 +58,12 @@ export default class Articles extends wepy.page {
     search,
     topBar,
     articleList,
-    articleAdv
+    articleAdv,
+    hotArticle,
+    personalVideo,
   };
+
+  onLoad() {}
 
   mixins = [];
 
@@ -115,17 +135,116 @@ export default class Articles extends wepy.page {
           view: 2000
         }
       }
-    ]
+    ],
+    hotArticles: [
+      {
+        id: 1,
+        title: '有哪些书非常利于青少年的发展？',
+        descraption: '为什么人类没有将猴子...',
+        rank: 1,
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000
+        }
+      },
+      {
+        id: 1,
+        title: '有哪些书非常利于青少年的发展？',
+        descraption: '为什么人类没有将猴子...',
+        rank: 2,
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000
+        }
+      },
+      {
+        id: 1,
+        title: '有哪些书非常利于青少年的发展？',
+        descraption: '为什么人类没有将猴子...',
+        rank: 3,
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000
+        }
+      },
+      {
+        id: 1,
+        title: '有哪些书非常利于青少年的发展？',
+        descraption: '为什么人类没有将猴子...',
+        rank: 4,
+        thumb: '../static/images/test.jpg',
+        meta: {
+          likes: 5000
+        }
+      },
+    ],
+    videos: [
+      {
+        id: 1,
+        thumb: '../static/images/test.jpg',
+        title: '秒怂是一种什么体验。。。',
+        mata: {
+          likes: 2000,
+          comment: 2000,
+        }
+      },
+      {
+        id: 2,
+        thumb: '../static/images/test.jpg',
+        title: '秒怂是一种什么体验。。。',
+        mata: {
+          likes: 2000,
+          comment: 2000,
+        }
+      },
+      {
+        id: 3,
+        thumb: '../static/images/test.jpg',
+        title: '秒怂是一种什么体验。。。',
+        mata: {
+          likes: 2000,
+          comment: 2000,
+        }
+      },
+    ],
+    advs: [
+      {
+        id: 0,
+        name: '知乎大学',
+        avatar: '../static/images/test.jpg',
+        image: '../static/images/test.jpg'
+      }
+    ],
+    currentBar: TOPTITLE[0],
+    topTitle: TOPTITLE
   };
-
-  computed = {};
 
   methods = {
     async changeBar(index) {
       let title = TOPTITLE[index];
+      this.currentBar = title;
       // 发起获取数据请求
     }
   };
+
+  // 底部下拉刷新
+  onReachBottom() {
+    // 显示加载图标
+    global.tip.loading('玩命加载中');
+    setTimeout(() => {
+      global.tip.loaded();
+    }, 500);
+  }
+  // 上拉刷新
+  onPullDownRefresh() {
+    wx.showNavigationBarLoading();
+    setTimeout(() => {
+      // 隐藏导航栏加载框
+      wx.hideNavigationBarLoading();
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
+    }, 1000);
+  }
 
   events = {
     'request-search': articleName => {

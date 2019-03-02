@@ -1,0 +1,29 @@
+<style lang="scss">
+.vedio {
+}
+</style>
+<template>
+  <view class="video">
+    
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class PersonalVideo extends wepy.component {
+  props = {
+    video: {
+      type: Object,
+      default: {
+        id: 1,
+        thumb: '../static/images/test.jpg',
+        title: '秒怂是一种什么体验。。。',
+        mata: {
+          likes: 2000,
+          comment: 2000,
+        }
+      },
+    }
+  }
+}
+</script>

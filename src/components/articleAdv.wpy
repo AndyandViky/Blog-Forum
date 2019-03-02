@@ -1,13 +1,51 @@
 <style lang="scss">
+.article_adv {
+  height: 300rpx;
+  > .adv_top {
+    height: 80rpx;
+    display: flex;
+    flex-direction: row;
+    > image {
+      border-radius: 100%;
+      margin: 15rpx 20rpx;
+    }
+    > text {
+      line-height: 80rpx;
+    }
+  }
+  > .adv_content {
+    height: 220rpx;
+  }
+}
 </style>
 <template>
-  <view class="">
+  <view class="article_adv">
+    <view class="adv_top">
+      <image style="height: 50rpx; width: 50rpx;" src="{{adv.avatar}}" mode="scaleToFill"
+        lazy-load="true">
+      </image>
+      <text class="fz26 c999">{{adv.name}}</text>
+    </view>
+    <view class="adv_content">
+      <navigator url="{{}}" open-type="navigate" hover-class="none">
+        <image style="height: 220rpx; width: 100%;" src="{{adv.image}}" mode="scaleToFill" lazy-load="true"></image>
+      </navigator>
+    </view>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  export default class articleAdv extends wepy.component {
-    
-  }
+import wepy from 'wepy';
+export default class ArticleAdv extends wepy.component {
+  props = {
+    adv: {
+      type: Object,
+      default: {
+        name: '',
+        avatar: '',
+        image: '',
+      },
+    }
+  };
+}
 </script>
