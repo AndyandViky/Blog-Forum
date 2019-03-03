@@ -82,6 +82,8 @@ export default class extends wepy.app {
 
   onLaunch() {
     global.tip = tip;
+    // const emitter = new EventEmitter()
+    // emitter.setMaxListeners(100)//指定一个最大监听数量
   }
 
   getUserInfo(cb) {

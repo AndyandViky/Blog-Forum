@@ -56,7 +56,7 @@
   <view class="personalVideo">
     <view class="video_thumb">
       <video src="{{video.url}}" objectFit="contain" @play="videoPlay"
-        id="{{video.id}}">
+        id="video_{{video.id}}">
       </video>
     </view>
     <view class="video_bottom">

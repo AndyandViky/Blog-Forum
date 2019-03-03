@@ -236,16 +236,14 @@ export default class Articles extends wepy.page {
 
     // 单例视频播放控制
     playVideo(id) {
-      let videoContext;
-      if(this.playId !== -1) {
-        console.log("123123");
-        videoContext = wx.createVideoContext(this.playId+"");
-        videoContext.stop();
-      } else {
-        this.playId = id;
+      var videoContext;
+      if(this.playId !== -1 && this.playId !== id) {
+        videoContext = wx.createVideoContext('video_' + this.playId);
+        setTimeout( () => {
+          videoContext.pause();
+        }, 200);
       }
-      videoContext = wx.createVideoContext(id+"");
-      videoContext.play();
+      this.playId = id;
     }
   };
 
