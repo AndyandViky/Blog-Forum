@@ -1,10 +1,92 @@
 <style lang="scss">
-.vedio {
+.personalVideo {
+  height: 470rpx;
+  > .video_thumb {
+    width: 94%;
+    height: 340rpx;
+    margin-left: 3%;
+    position: relative;
+    > image {
+      width: 100%;
+      height: 100%;
+      border-radius: 20rpx;
+    }
+    > .video_play {
+      justify-content: center;
+    }
+    > .video_time {
+      position: absolute;
+      bottom: 10rpx;
+      right: 20rpx;
+      color: #ffffff;
+    }
+  }
+  > .video_bottom {
+    width: 94%;
+    height: 120rpx;
+    margin-left: 3%;
+    > .video_title {
+      font-size: 33rpx;
+      color: black;
+      font-weight: bold;
+      height: 60rpx;
+      line-height: 60rpx;
+    }
+    > .video_base_info {
+      height: 60rpx;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      > .vbi_user {
+        width: 200rpx;
+        display: flex;
+        flex-direction: row;
+        > image {
+          width: 30rpx;
+          height: 30rpx;
+          margin: 15rpx 15rpx 0 0;
+          border-radius: 100%;
+        }
+        > .vbi_username {
+          line-height: 60rpx;
+        }
+      }
+      > .vbi_meta {
+        width: 350rpx;
+        line-height: 60rpx;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+    }
+  }
 }
 </style>
 <template>
-  <view class="video">
-    
+  <view class="personalVideo">
+    <view class="video_thumb">
+      <image src="{{video.thumb}}" mode="scaleToFill"
+        lazy-load="false">
+      </image>
+      <!-- <view class="video_play">播放</view> -->
+      <view class="video_time fz26">05:20</view>
+    </view>
+    <view class="video_bottom">
+      <view class="video_title hidden_text_singel">{{video.title}}</view>
+      <view class="video_base_info">
+        <view class="vbi_user">
+          <image src="{{video.thumb}}" mode="scaleToFill"
+            lazy-load="false">
+          </image>
+          <text class="vbi_username hidden_text_singel fz26">呵呵哒</text>
+        </view>
+        <view class="vbi_meta">
+          <view class="vbi_likes fz26">{{video.meta.likes}}点赞 · </view>
+          <view class="vbi_comment fz26">{{video.meta.comment}}评论 · </view>
+          <view class="vbi_share fz26">分享</view>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -16,9 +98,9 @@ export default class PersonalVideo extends wepy.component {
       type: Object,
       default: {
         id: 1,
-        thumb: '../static/images/test.jpg',
+        thumb: '../static/images/test1.png',
         title: '秒怂是一种什么体验。。。',
-        mata: {
+        meta: {
           likes: 2000,
           comment: 2000,
         }

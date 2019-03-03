@@ -4,17 +4,13 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  .a_item {
-    margin: 20rpx 0;
-    background-color: #ffffff;
-  }
-  > .article_list {
+  > .article_list, .hot_articles, .video {
     background-color: #efefef;
     height: 100%;
-  }
-  > .hot_articles {
-    background-color: #efefef;
-    height: 100%;
+    .a_item {
+      margin: 20rpx 0;
+      background-color: #ffffff;
+    }
   }
 }
 </style>
@@ -33,9 +29,9 @@
         <hotArticle class="a_item" :hot="item"></hotArticle>
       </repeat>
     </view>
-    <view class="vedio" wx:if="{{ currentBar === topTitle[2] }}">
+    <view class="video" wx:if="{{ currentBar === topTitle[2] }}">
       <repeat for="{{videos}}" index="index" key="index" item="item">
-        <personalVideo :video.sync="item"></personalVideo>
+        <personalVideo :video.sync="item" class="a_item"></personalVideo>
       </repeat>
     </view>
   </view>
@@ -181,27 +177,27 @@ export default class Articles extends wepy.page {
     videos: [
       {
         id: 1,
-        thumb: '../static/images/test.jpg',
+        thumb: '../static/images/test2.png',
         title: '秒怂是一种什么体验。。。',
-        mata: {
+        meta: {
           likes: 2000,
           comment: 2000,
         }
       },
       {
         id: 2,
-        thumb: '../static/images/test.jpg',
+        thumb: '../static/images/test2.png',
         title: '秒怂是一种什么体验。。。',
-        mata: {
+        meta: {
           likes: 2000,
           comment: 2000,
         }
       },
       {
         id: 3,
-        thumb: '../static/images/test.jpg',
+        thumb: '../static/images/test2.png',
         title: '秒怂是一种什么体验。。。',
-        mata: {
+        meta: {
           likes: 2000,
           comment: 2000,
         }
