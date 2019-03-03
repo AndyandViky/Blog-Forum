@@ -115,9 +115,9 @@
           @input="searchNameInput"
           maxlength="50"
           focus="true"
-        ></input>
+        >
       </view>
-      <button class="s_button" @tap="doSearch" plain="true">搜索</button>
+      <button class="s_button" @tap="doSearch({{false}})" plain="true">搜索</button>
     </view>
     <view class="category">
       <view class="fz28 c_title">文章类别</view>
@@ -129,7 +129,7 @@
           >{{item.name}}</view>
         </repeat>
       </view>
-    </view> 
+    </view>
     <view class="history_search">
       <view class="fz28 h_title">
         <text>历史搜索</text>
@@ -138,7 +138,10 @@
       <view class="history_detail">
         <text class="history_empty fz28" wx:if="{{historys.length === 0}}">暂无历史记录</text>
         <repeat for="{{historys}}" index="index" key="index" item="item">
-          <view class="history_item hidden_text_singel fz28" @tap="chooseHistory({{index}})">{{item.name}}</view>
+          <view
+            class="history_item hidden_text_singel fz28"
+            @tap="chooseHistory({{index}})"
+          >{{item.name}}</view>
         </repeat>
       </view>
     </view>
@@ -198,32 +201,20 @@ export default class SearchView extends wepy.page {
       // 选择历史记录
       this.searchContent = this.historys[index].name;
       this.categoryIds = this.historys[index].categoryIds;
-      doSearch();
+      this._doSearch(true);
     },
     searchNameInput(content) {
       this.searchContent = content.detail.value;
     },
-    doSearch() {
-      if (!this.searchContent && this.categoryIds.length === 0) {
-        global.tip.alert('请选择搜索条件！');
-      } else {
-        if (this.searchContent) {
-          this.historys.push({
-            name: this.searchContent,
-            categoryIds: this.categoryIds || [],
-          })
-          // 更新本地缓存
-          wx.setStorageSync(SEARCH_HISTORYS, this.historys)
-        }
-        // 搜索
-      }
+    doSearch(isHistory) {
+      this._doSearch(isHistory);
     },
     clearHistory() {
       // 清空搜索记录
       global.tip.loading('正在清除');
       this.historys = [];
       // 删除本地缓存
-      wx.removeStorageSync(SEARCH_HISTORYS)
+      wx.removeStorageSync(SEARCH_HISTORYS);
       global.tip.loaded();
     }
   };
@@ -236,10 +227,29 @@ export default class SearchView extends wepy.page {
     }
     return false;
   }
+  _doSearch(isHistory) {
+    if (!this.searchContent && this.categoryIds.length === 0) {
+      global.tip.alert('请选择搜索条件！');
+    } else {
+      if (!isHistory && this.searchContent) {
+        if (this.historys.length >= 5) {
+          // 达到记录上限
+          this.historys.splice(6, 1);
+        }
+        this.historys.push({
+          name: this.searchContent,
+          categoryIds: this.categoryIds
+        });
+        // 更新本地缓存
+        wx.setStorageSync(SEARCH_HISTORYS, this.historys);
+      }
+      // 搜索
+    }
+  }
   onLoad() {
     // 初始化
     for (let i = 0; i < this.categorys.length; i++) this.isActives.push(0);
-    this.historys = wx.getStorageSync(SEARCH_HISTORYS);
+    this.historys = wx.getStorageSync(SEARCH_HISTORYS) || [];
   }
 }
 </script>
