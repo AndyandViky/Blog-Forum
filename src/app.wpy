@@ -14,7 +14,8 @@ export default class extends wepy.app {
       'pages/articles',
       'pages/article',
       'pages/comments',
-      'pages/github'
+      'pages/github',
+      'pages/searchView',
     ],
     window: {
       backgroundTextStyle: 'dark',

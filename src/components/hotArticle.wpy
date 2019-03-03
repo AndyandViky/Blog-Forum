@@ -56,7 +56,7 @@
           <view class="hot_count fz26">{{hot.meta.likes}}热搜</view>
         </view>
         <view class="hot_image">
-          <image src="{{hot.thumb}}" mode="scaleToFill" lazy-load="false"></image>
+          <image src="{{hot.thumb}}" mode="scaleToFill" lazy-load="{{true}}"></image>
         </view>
       </view>
     </navigator>

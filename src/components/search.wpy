@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: row;
   display: -webkit-flex; /* Safari */
-  .s_input_b, .s_button {
+  .s_input_b,
+  .s_button {
     height: 70rpx;
     margin: 20rpx 10rpx;
     border: none;
@@ -21,7 +22,7 @@
       width: 90%;
       flex-grow: 6;
     }
-    >icon {
+    > icon {
       flex-grow: 1;
       text-align: center;
       line-height: 96rpx;
@@ -42,32 +43,23 @@
   <view class="search">
     <view class="s_input_b">
       <icon type="search" size="12"></icon>
-      <input placeholder="请输入文章名..." class="s_input fz24" @blur="mobileInput" maxlength="20"/>
+      <input placeholder="请输入文章名..." disabled="true" class="s_input fz24" @tap="goSearch">
     </view>
-    <button class="s_button" @tap="submit" plain="true">搜索</button>
+    <button class="s_button" @tap="showWeixin" plain="true">联系我</button>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  export default class Search extends wepy.component {
-    data = {
-      articleName: '',
-      bLoding: false,
+import wepy from 'wepy';
+export default class Search extends wepy.component {
+  methods = {
+    showWeixin() {
+      global.tip.success('。。。');
+    },
+    goSearch() {
+      wepy.navigateTo({ url: 'searchView' });
     }
-    methods = {
-      submit() {
-        if(!this.articleName) global.tip.alert('请输入文章名');
-        else {
-          this.$emit('request-search', this.articleName);
-        }
-      },
-      mobileInput(data) {
-        this.articleName = data.detail.value;
-      }
-    }
-    events = {
-    }
-  }
-
+  };
+  events = {};
+}
 </script>

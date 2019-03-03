@@ -6,19 +6,9 @@
     height: 340rpx;
     margin-left: 3%;
     position: relative;
-    > image {
+    > video {
       width: 100%;
       height: 100%;
-      border-radius: 20rpx;
-    }
-    > .video_play {
-      justify-content: center;
-    }
-    > .video_time {
-      position: absolute;
-      bottom: 10rpx;
-      right: 20rpx;
-      color: #ffffff;
     }
   }
   > .video_bottom {
@@ -65,11 +55,9 @@
 <template>
   <view class="personalVideo">
     <view class="video_thumb">
-      <image src="{{video.thumb}}" mode="scaleToFill"
-        lazy-load="false">
-      </image>
-      <!-- <view class="video_play">播放</view> -->
-      <view class="video_time fz26">05:20</view>
+      <video src="{{video.url}}" objectFit="contain" @pause="pause"
+        @waiting="waiting" @error="error">
+      </video>
     </view>
     <view class="video_bottom">
       <view class="video_title hidden_text_singel">{{video.title}}</view>

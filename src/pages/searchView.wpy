@@ -1,18 +1,18 @@
 <style lang="scss">
 </style>
 <template>
-  <view @tap = 'redict1'>跳转2</view>
+  <view></view>
 </template>
 
 <script>
   import wepy from 'wepy'
-  export default class Comments extends wepy.page {
+  export default class SearchView extends wepy.page {
     config = {
-      navigationBarTitleText: '评论'
+      navigationBarTitleText: '文章搜索'
     }
     methods = {
     }
-    onload() {  
+    onload() {
     }
   }
 

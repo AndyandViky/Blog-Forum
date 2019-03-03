@@ -32,6 +32,15 @@
       display: flex;
       flex-direction: row;
       line-height: 80rpx;
+      justify-content: space-between;
+      > .meta_info {
+        flex-direction: row;
+        display: flex;
+        width: 300rpx;
+      }
+      > .create_time {
+        padding-right: 10rpx;
+      }
     }
   }
 }
@@ -52,16 +61,19 @@
             class="article_thumb"
             wx:if="{{article.thumb !== ''}}"
             src="{{article.thumb}}"
-            lazy-load="true"
+            lazy-load="{{true}}"
           ></image>
         </view>
         <view class="article_info c999">
-          <view class="like_count fz24">
-            <text>{{article.meta.likes}}赞同 ·</text>
+          <view class="meta_info">
+            <view class="like_count fz24">
+              <text>{{article.meta.likes}}赞同 ·</text>
+            </view>
+            <view class="comment_count fz24">
+              <text>{{article.meta.view}}评论</text>
+            </view>
           </view>
-          <view class="comment_count fz24">
-            <text>{{article.meta.view}}评论</text>
-          </view>
+          <view class="create_time fz24">2019/2/3 · 技术总结</view>
         </view>
       </view>
     </navigator>
