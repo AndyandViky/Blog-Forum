@@ -1,6 +1,7 @@
 <style lang="scss">
 @import './styles/base.scss';
 @import './styles/icon.scss';
+@import "./wxParse/wxParse.wxss";
 </style>
 
 <script>
@@ -20,7 +21,6 @@ export default class extends wepy.app {
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black',
       enablePullDownRefresh: true,
       backgroundColor: '#EFEFEF'

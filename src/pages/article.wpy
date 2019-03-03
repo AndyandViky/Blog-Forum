@@ -1,18 +1,22 @@
 <style lang="scss">
 </style>
 <template>
-  <view>跳转12</view>
+  <view>
+    <import src="../wxParse/wxParse.wxml"/>
+    <template is="wxParse" data="{{wxParseData: article.nodes}}"/>
+  </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  const WxParse = require('../wxParse/wxParse.js')
   export default class Article extends wepy.page {
-    config = {
-      navigationBarTitleText: '文章详情'
-    }
     methods = {
     }
-    onload() {
+    onLoad() {
+      let article = '<div>我是HTML代码</div>';
+      wx.setNavigationBarTitle({title: '文章详情'})
+      WxParse.wxParse('article', 'html', article, this, 5);
     }
   }
 
