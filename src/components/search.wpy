@@ -30,9 +30,8 @@
     }
   }
   .s_button {
-    flex-grow: 3;
-    width: 40rpx;
-    margin-right: 40rpx;
+    flex-grow: 1;
+    margin-right: 20rpx;
     line-height: 70rpx;
     color: rgb(30, 82, 223);
     font-size: 34rpx;
@@ -43,7 +42,7 @@
   <view class="search">
     <view class="s_input_b">
       <icon type="search" size="12"></icon>
-      <input placeholder="请输入文章名..." disabled="true" class="s_input fz24" @tap="goSearch">
+      <input placeholder="请输入文章名..." disabled="true" class="s_input fz24" @tap="goSearch"></input>
     </view>
     <button class="s_button" @tap="showWeixin" plain="true">联系我</button>
   </view>

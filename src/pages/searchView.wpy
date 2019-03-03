@@ -1,19 +1,245 @@
 <style lang="scss">
+.search_view {
+  background-color: #fff;
+  height: 100%;
+  > .search_bar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    display: -webkit-flex; /* Safari */
+    border-bottom: 1px solid #ccc;
+    .s_input_b,
+    .s_button {
+      height: 70rpx;
+      margin: 20rpx 0;
+      border: none;
+    }
+    .s_input_b {
+      padding-left: 20rpx;
+      border-radius: 10rpx;
+      flex-grow: 5;
+      background-color: rgba(240, 240, 240, 0.959);
+      display: flex;
+      margin-left: 40rpx;
+      .s_input {
+        height: 70rpx;
+        flex-grow: 6;
+      }
+      > icon {
+        flex-grow: 1;
+        text-align: center;
+        line-height: 96rpx;
+        padding-right: 20rpx;
+      }
+    }
+    .s_button {
+      flex-grow: 1;
+      line-height: 70rpx;
+      color: rgb(30, 82, 223);
+      font-size: 34rpx;
+    }
+  }
+  > .history_search,
+  .category {
+    width: 90%;
+    margin-left: 5%;
+  }
+  > .category {
+    > .c_title {
+      padding: 20rpx 0;
+      font-weight: bold;
+      color: rgb(155, 151, 151);
+    }
+    > .category_detail {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      flex-wrap: wrap;
+      .category_item {
+        padding: 0 40rpx;
+        height: 60rpx;
+        margin: 0 25rpx 25rpx 0;
+        border-radius: 10rpx;
+        text-align: center;
+        line-height: 60rpx;
+        background-color: rgb(250, 250, 250);
+      }
+      .choose_item {
+        color: #ffffff;
+        background-color: rgb(30, 82, 223);
+      }
+    }
+  }
+  > .history_search {
+    > .h_title {
+      padding: 20rpx 0;
+      font-weight: bold;
+      color: rgb(155, 151, 151);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    > .history_detail {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      > .history_empty {
+        text-align: center;
+        line-height: 200rpx;
+        color: #ccc;
+        width: 100%;
+      }
+      .history_item {
+        padding: 0 40rpx;
+        max-width: 200rpx;
+        height: 60rpx;
+        margin: 0 25rpx 25rpx 0;
+        border-radius: 10rpx;
+        text-align: center;
+        line-height: 60rpx;
+        background-color: rgb(250, 250, 250);
+      }
+    }
+  }
+}
 </style>
 <template>
-  <view></view>
+  <view class="search_view">
+    <view class="search_bar">
+      <view class="s_input_b">
+        <icon type="search" size="12"></icon>
+        <input
+          placeholder="请输入文章名..."
+          class="s_input fz24"
+          @input="searchNameInput"
+          maxlength="50"
+          focus="true"
+        ></input>
+      </view>
+      <button class="s_button" @tap="doSearch" plain="true">搜索</button>
+    </view>
+    <view class="category">
+      <view class="fz28 c_title">文章类别</view>
+      <view class="category_detail">
+        <repeat for="{{categorys}}" index="index" key="index" item="item">
+          <view
+            class="category_item fz28 {{isActives[index] === 1 ? 'choose_item' : ''}}"
+            @tap="chooseCategory({{index}})"
+          >{{item.name}}</view>
+        </repeat>
+      </view>
+    </view> 
+    <view class="history_search">
+      <view class="fz28 h_title">
+        <text>历史搜索</text>
+        <text @tap="clearHistory">清空记录</text>
+      </view>
+      <view class="history_detail">
+        <text class="history_empty fz28" wx:if="{{historys.length === 0}}">暂无历史记录</text>
+        <repeat for="{{historys}}" index="index" key="index" item="item">
+          <view class="history_item hidden_text_singel fz28" @tap="chooseHistory({{index}})">{{item.name}}</view>
+        </repeat>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  export default class SearchView extends wepy.page {
-    config = {
-      navigationBarTitleText: '文章搜索'
+import wepy from 'wepy';
+import { SEARCH_HISTORYS } from '../utils/constant';
+export default class SearchView extends wepy.page {
+  config = {
+    navigationBarTitleText: '文章搜索'
+  };
+  data = {
+    categorys: [
+      {
+        id: 1,
+        name: '技术类'
+      },
+      {
+        id: 2,
+        name: '生活类'
+      },
+      {
+        id: 3,
+        name: '兴趣类'
+      },
+      {
+        id: 4,
+        name: '其他'
+      }
+    ],
+    historys: [],
+    categoryIds: [],
+    isActives: [],
+    searchContent: ''
+  };
+  methods = {
+    chooseCategory(index) {
+      let cId = this.categorys[index].id;
+      if (this.djugeId(cId)) {
+        // 如果有就删除
+        this.categoryIds = this.categoryIds.filter(id => {
+          return id !== cId;
+        });
+        this.isActives[index] = 0;
+      } else {
+        if (this.categoryIds.length === 3) {
+          global.tip.alert('最多选择三种类别!');
+          return;
+        }
+        this.categoryIds.push(cId);
+        this.isActives[index] = 1;
+      }
+    },
+    chooseHistory(index) {
+      // 选择历史记录
+      this.searchContent = this.historys[index].name;
+      this.categoryIds = this.historys[index].categoryIds;
+      doSearch();
+    },
+    searchNameInput(content) {
+      this.searchContent = content.detail.value;
+    },
+    doSearch() {
+      if (!this.searchContent && this.categoryIds.length === 0) {
+        global.tip.alert('请选择搜索条件！');
+      } else {
+        if (this.searchContent) {
+          this.historys.push({
+            name: this.searchContent,
+            categoryIds: this.categoryIds || [],
+          })
+          // 更新本地缓存
+          wx.setStorageSync(SEARCH_HISTORYS, this.historys)
+        }
+        // 搜索
+      }
+    },
+    clearHistory() {
+      // 清空搜索记录
+      global.tip.loading('正在清除');
+      this.historys = [];
+      // 删除本地缓存
+      wx.removeStorageSync(SEARCH_HISTORYS)
+      global.tip.loaded();
     }
-    methods = {
+  };
+  /**
+   * 判断当前item是否已被选中
+   */
+  djugeId(id) {
+    for (let i = 0; i < this.categoryIds.length; i++) {
+      if (id === this.categoryIds[i]) return true;
     }
-    onload() {
-    }
+    return false;
   }
-
+  onLoad() {
+    // 初始化
+    for (let i = 0; i < this.categorys.length; i++) this.isActives.push(0);
+    this.historys = wx.getStorageSync(SEARCH_HISTORYS);
+  }
+}
 </script>

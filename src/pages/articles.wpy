@@ -38,7 +38,7 @@
       </view>
       <view class="video" wx:if="{{ currentBar === topTitle[2] }}">
         <repeat for="{{videos}}" index="index" key="index" item="item">
-          <personalVideo :video.sync="item" class="a_item"></personalVideo>
+          <personalVideo :video.sync="item" class="a_item" @playVideo.user="playVideo"></personalVideo>
         </repeat>
       </view>
     </scroll-view>
@@ -139,7 +139,7 @@ export default class Articles extends wepy.page {
           view: 2000
         }
       }
-    ],
+    ], // 推荐文章
     hotArticles: [
       {
         id: 1,
@@ -181,7 +181,7 @@ export default class Articles extends wepy.page {
           likes: 5000
         }
       }
-    ],
+    ], // 热门文章
     videos: [
       {
         id: 1,
@@ -213,7 +213,7 @@ export default class Articles extends wepy.page {
           comment: 2000
         }
       }
-    ],
+    ], // 视频
     advs: [
       {
         id: 0,
@@ -221,9 +221,10 @@ export default class Articles extends wepy.page {
         avatar: '../static/images/test.jpg',
         image: '../static/images/test.jpg'
       }
-    ],
+    ], // 广告
     currentBar: TOPTITLE[0],
-    topTitle: TOPTITLE
+    topTitle: TOPTITLE, // 顶部标题
+    playId: -1, // 当前正在播放的video id
   };
 
   methods = {
@@ -231,6 +232,20 @@ export default class Articles extends wepy.page {
       let title = TOPTITLE[index];
       this.currentBar = title;
       // 发起获取数据请求
+    },
+
+    // 单例视频播放控制
+    playVideo(id) {
+      let videoContext;
+      if(this.playId !== -1) {
+        console.log("123123");
+        videoContext = wx.createVideoContext(this.playId+"");
+        videoContext.stop();
+      } else {
+        this.playId = id;
+      }
+      videoContext = wx.createVideoContext(id+"");
+      videoContext.play();
     }
   };
 

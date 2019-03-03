@@ -120,7 +120,9 @@ export default class Tips {
   static loaded() {
     if (Tips.isLoading) {
       Tips.isLoading = false;
-      wx.hideLoading();
+      setTimeout( () => {
+        wx.hideLoading();
+      }, 300)
     }
   }
 

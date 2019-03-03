@@ -55,8 +55,8 @@
 <template>
   <view class="personalVideo">
     <view class="video_thumb">
-      <video src="{{video.url}}" objectFit="contain" @pause="pause"
-        @waiting="waiting" @error="error">
+      <video src="{{video.url}}" objectFit="contain" @play="videoPlay"
+        id="{{video.id}}">
       </video>
     </view>
     <view class="video_bottom">
@@ -85,7 +85,7 @@ export default class PersonalVideo extends wepy.component {
     video: {
       type: Object,
       default: {
-        id: 1,
+        id: -1,
         thumb: '../static/images/test1.png',
         title: '秒怂是一种什么体验。。。',
         meta: {
@@ -93,6 +93,11 @@ export default class PersonalVideo extends wepy.component {
           comment: 2000,
         }
       },
+    }
+  };
+  methods = {
+    videoPlay() {
+      this.$emit('playVideo', this.video.id);
     }
   }
 }

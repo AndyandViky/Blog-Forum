@@ -26,3 +26,8 @@ export const TOPTITLE = [
   'hot',
   'vedio',
 ]
+
+/**
+ * 本地缓存历史记录
+ */
+export const SEARCH_HISTORYS = "searchHistorys"
