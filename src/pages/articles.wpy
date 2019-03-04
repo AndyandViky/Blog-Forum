@@ -219,7 +219,8 @@ export default class Articles extends wepy.page {
         id: 0,
         name: '知乎大学',
         avatar: '../static/images/test.jpg',
-        image: '../static/images/test.jpg'
+        image: '../static/images/test.jpg',
+        url: 'www.baidu.com',
       }
     ], // 广告
     currentBar: TOPTITLE[0],

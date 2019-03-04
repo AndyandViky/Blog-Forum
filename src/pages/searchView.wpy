@@ -115,7 +115,7 @@
           @input="searchNameInput"
           maxlength="50"
           focus="true"
-        >
+        />
       </view>
       <button class="s_button" @tap="doSearch({{false}})" plain="true">搜索</button>
     </view>
@@ -201,6 +201,10 @@ export default class SearchView extends wepy.page {
       // 选择历史记录
       this.searchContent = this.historys[index].name;
       this.categoryIds = this.historys[index].categoryIds;
+      // 将当前历史记录放置到第一位
+      let temp = this.historys[index];
+      this.historys[index] = this.historys[0];
+      this.historys[0] = temp;
       this._doSearch(true);
     },
     searchNameInput(content) {
@@ -234,15 +238,15 @@ export default class SearchView extends wepy.page {
       if (!isHistory && this.searchContent) {
         if (this.historys.length >= 5) {
           // 达到记录上限
-          this.historys.splice(6, 1);
+          this.historys.splice(5, 1);
         }
         this.historys.push({
           name: this.searchContent,
           categoryIds: this.categoryIds
         });
-        // 更新本地缓存
-        wx.setStorageSync(SEARCH_HISTORYS, this.historys);
       }
+      // 更新本地缓存
+      wx.setStorageSync(SEARCH_HISTORYS, this.historys);
       // 搜索
     }
   }

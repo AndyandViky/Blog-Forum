@@ -23,14 +23,14 @@
 </template>
 
 <template name="WxEmojiView">
-  <view class="WxEmojiView wxParse-inline" style="{{item.styleStr}}">
+  <text class="WxEmojiView wxParse-inline" style="{{item.styleStr}}">
     <block wx:for="{{item.textArray}}" wx:key="">
       <block class="{{item.text == '\\n' ? 'wxParse-hide':''}}" wx:if="{{item.node == 'text'}}">{{item.text}}</block>
       <block wx:elif="{{item.node == 'element'}}">
         <image class="wxEmoji" src="{{item.baseSrc}}{{item.text}}" />
       </block>
     </block>
-  </view>
+  </text>
 </template>
 
 <template name="WxParseBr">
@@ -62,7 +62,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -147,7 +147,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -224,7 +224,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -300,7 +300,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -376,7 +376,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -452,7 +452,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -528,7 +528,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -603,7 +603,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -679,7 +679,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -755,7 +755,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -831,7 +831,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
@@ -907,7 +907,7 @@
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
         <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
-            <view class="{{item.classStr}} wxParse-li-circle"></view>
+            <text class="{{item.classStr}} wxParse-li-circle"></text>
           </view>
           <view class="{{item.classStr}} wxParse-li-text">
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">

@@ -27,7 +27,7 @@
       <text class="fz26 c999">{{adv.name}}</text>
     </view>
     <view class="adv_content">
-      <navigator url="{{}}" open-type="navigate" hover-class="none">
+      <navigator url="{{adv.url}}" open-type="navigate" hover-class="none">
         <image style="height: 220rpx; width: 100%;" src="{{adv.image}}" mode="scaleToFill" lazy-load="{{true}}"></image>
       </navigator>
     </view>
@@ -44,6 +44,7 @@ export default class ArticleAdv extends wepy.component {
         name: '',
         avatar: '',
         image: '',
+        url: '',
       },
     }
   };

@@ -1,9 +1,69 @@
 <style lang="scss">
+.article_container {
+  width: 100%;
+  > .article_detail_info, .a_c_box, .article_recommond, .article_comment {
+    width: 96%;
+    margin: 2% 0 2% 2%;
+    background-color: #ffffff;
+    border-radius: 10rpx;
+  }
+  > .a_c_box {
+    > view {
+      width: 96%;
+      margin-left: 2%;
+    }
+    view {
+      overflow: hidden;
+    }
+  }
+  > .article_detail_info {
+    display: flex;
+    flex-direction: column;
+  }
+  > .article_recommond {
+    display: flex;
+    flex-direction: column;
+    .article_title {
+      display: flex;
+      flex-direction: row;
+      > .article_title_inner {
+        max-width: 420rpx;
+      }
+    }
+  }
+}
 </style>
 <template>
-  <view>
-    <import src="../wxParse/wxParse.wxml"/>
-    <template is="wxParse" data="{{wxParseData: article.nodes}}"/>
+  <view class="article_container">
+    <view class="a_c_box">
+      <view>
+        <import src="../wxParse/wxParse.wxml"/>
+        <template is="wxParse" data="{{wxParseData: article.nodes}}"/>
+      </view>
+    </view>
+    <view class="article_detail_info">
+      <view class="a_push_time marginT30 fz26 marginLR30 marginB20">本文于 2019/1/24 下午 发布在 Code 分类下，当前已被围观 1139 次</view>
+      <view class="a_tags fz26 marginLR30 marginB20">相关标签：学习、生活、Web开发、工作</view>
+      <view class="forever_adress marginB20 marginLR30 fz26">永久地址：http://localhost:8000/article/1</view>
+    </view>
+    <view class="article_recommond">
+      <repeat for="{{articles}}" index="index" item="item" key="index">
+        <view
+        @tap="redirectToArticle({{item.id}})" 
+        class="article_title marginB20 marginLR20 fz26 {{index === 0 ? 'marginT30' : ''}} {{index === articles.length-1 ? 'marginB30' : ''}}">
+          <text>《</text>
+          <text class="article_title_inner hidden_text_singel">{{item.title}}</text>
+          <text>》</text>
+          <text>- 狠狠地阅读</text>
+        </view>
+      </repeat>
+    </view>
+    <view class="article_comment">
+      <repeat for="{{comments.data}}" index="index" item="item" key="index">
+
+      </repeat>
+      <view class="send_comment"></view>
+    </view>
   </view>
 </template>
 
@@ -11,10 +71,42 @@
   import wepy from 'wepy'
   const WxParse = require('../wxParse/wxParse.js')
   export default class Article extends wepy.page {
+    data = {
+      articles: [
+        {
+          id: 1,
+          title: '我到底做了什么才让自己变得这么好看？'
+        },
+        {
+          id: 2,
+          title: '给 fetch 加一套可退化的中止方案'
+        },
+        {
+          id: 3,
+          title: '实现基于 Nuxt.js 的 SSR 应用'
+        },
+        {
+          id: 4,
+          title: 'Javascript 中的 void 操作符'
+        }
+      ],
+      comments: {
+        likes: 2000,
+        comment: 2000,
+        data: [
+          {
+            
+          }
+        ]
+      }
+    }
     methods = {
+      redirectToArticle(id) {
+        console.log(id);
+      }
     }
     onLoad() {
-      let article = '<div>我是HTML代码</div>';
+      let article = '<h1>nestjs学习（四）</h1><ol><li><p>Guards&gt;确定请求是否应由路由处理程序处理,在每个中间件之后执行，但在任何pipe之前执行。</p><ul><li><p>Authorization guard</p></li><li><p>Role-based authentication</p><pre><code>import { Injectable, CanActivate, ExecutionContext } from &#39;@nestjs/common&#39;;import { Observable } from &#39;rxjs&#39;;@Injectable()export class RolesGuard implements CanActivate {canActivate(context: ExecutionContext,): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; {return true;}}</code></pre></li></ul></li><li><p>Interceptors 拦截器</p><ul><li>功能<ul><li>在方法执行之前/之后绑定额外的逻辑</li><li>转换函数返回的结果</li><li>转换从函数抛出的异常</li><li>扩展基本函数行为</li><li>根据所选条件完全覆盖函数（例如缓存目的）</li></ul></li><li><p>拦截示例</p><pre><code>import { Injectable, NestInterceptor, ExecutionContext } from &#39;@nestjs/common&#39;;export class ApplicationModule {}</p><pre><code>import { createParamDecorator } from &#39;@nestjs/common&#39;;export const User = createParamDecorator((data, req) =&gt; {return req.user;});</code></pre><p><img alt="大致流程图" src="https://img-blog.csdnimg.cn/20190223160207666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70"/></p></li></ol>';
       wx.setNavigationBarTitle({title: '文章详情'})
       WxParse.wxParse('article', 'html', article, this, 5);
     }
