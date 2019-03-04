@@ -1,14 +1,56 @@
 <style lang="scss">
+.github_projects {
+  height: 100%;
+}
 </style>
 <template>
-  <view></view>
+  <view class="github_projects">
+    <repeat for="{{githubProjects}}" index="index" key="index" item="item">
+      <githubProject :project.sync="item"></githubProject>
+    </repeat>
+  </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import githubProject from '../components/githubProject';
   export default class Github extends wepy.page {
     config = {
       navigationBarTitleText: '个人项目'
+    }
+    data = {
+      githubProjects: [
+        {
+          id: 1,
+          thumb: '../static/images/test.jpg',
+          name: 'Vue-Awesome-Swiper',
+          descraption: 'swiper components of @vuejs',
+          star: 100,
+          fork: 1,
+          issue: 20,
+        },
+        {
+          id: 2,
+          thumb: '../static/images/test.jpg',
+          name: 'Vue-Awesome-Swiper',
+          descraption: 'swiper components of @vuejs',
+          star: 100,
+          fork: 1,
+          issue: 20,
+        },
+        {
+          id: 3,
+          thumb: '../static/images/test.jpg',
+          name: 'Vue-Awesome-Swiper',
+          descraption: 'swiper components of @vuejs',
+          star: 100,
+          fork: 1,
+          issue: 20,
+        }
+      ]
+    }
+    components = {
+      githubProject,
     }
     methods = {
     }

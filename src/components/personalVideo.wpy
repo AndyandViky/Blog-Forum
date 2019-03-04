@@ -47,6 +47,9 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
+        > view {
+          padding-left: 20rpx;
+        }
       }
     }
   }
@@ -69,9 +72,17 @@
           <text class="vbi_username hidden_text_singel fz26">呵呵哒</text>
         </view>
         <view class="vbi_meta">
-          <view class="vbi_likes fz26">{{video.meta.likes}}点赞 · </view>
-          <view class="vbi_comment fz26">{{video.meta.comment}}评论 · </view>
-          <view class="vbi_share fz26">分享</view>
+          <view class="vbi_likes fz26">
+            {{video.meta.likes}}
+            <text class="iconfont icon-up"></text>
+          </view>
+          <view class="vbi_comment fz26">
+            {{video.meta.comment}}
+            <text class="iconfont icon-del"></text>
+          </view>
+          <view class="vbi_share fz26">
+            <text class="iconfont icon-share"></text>
+          </view>
         </view>
       </view>
     </view>

@@ -1,0 +1,89 @@
+<style lang="scss">
+.github_project {
+  width: 94%;
+  background-color: #ffffff;
+  margin: 20rpx 3%;
+  height: 400rpx;
+  border-radius: 10rpx;
+  > .p_name, .p_des, .p_info {
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+  }
+  > .p_thumb {
+    height: 160rpx;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    > image {
+      width: 100rpx;
+      height: 100rpx;
+      margin-top: 30rpx;
+    }
+  }
+  > .p_name {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+  }
+  > .p_des {
+    width: 94%;
+    margin-left: 3%;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+  }
+  > .p_info {
+    display: flex;
+    flex-direction: row;
+    width: 94%;
+    margin-left: 3%;
+    > view {
+      text-align: center;
+      flex-grow: 1;
+    }
+  }
+}
+</style>
+<template>
+  <view class="github_project">
+    <view class="p_thumb">
+      <image src="{{project.thumb}}" mode="scaleToFill"
+        lazy-load="true">
+      </image>
+    </view>
+    <view class="p_name fz32 hidden_text_singel">
+      <text>{{project.name}}</text>
+    </view>
+    <view class="p_des fz28 hidden_text_singel">
+      <text>{{project.descraption}}</text>
+    </view>
+    <view class="p_info">
+      <view class="star">
+        <text class="iconfont icon-message"></text>
+        {{project.star}}
+      </view>
+      <view class="fork">
+        <text class="iconfont icon-filter"></text>
+        {{project.fork}}
+      </view>
+      <view class="issue">
+        <text class="iconfont icon-jifen"></text>
+        {{project.issue}}
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class GithubProject extends wepy.component {
+    props = {
+      project: {
+        type: Object,
+        default: {}
+      }
+    }
+  }
+
+</script>
