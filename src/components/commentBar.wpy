@@ -1,0 +1,96 @@
+<style lang="scss">
+.comment_bar {
+  min-height: 180rpx;
+  border-radius: 5rpx;
+  background-color: #e6e6e6;
+  position: relative;
+  view {
+    font-size: 26rpx;
+  }
+  > .commenter_info,
+  .comment_other_info {
+    display: flex;
+    flex-direction: row;
+  }
+  > .commenter_info {
+    height: 70rpx;
+    line-height: 70rpx;
+    justify-content: space-between;
+    > .cter_info {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      > view {
+        margin-right: 20rpx;
+      }
+    }
+  }
+  > .comment_other_info {
+    height: 70rpx;
+    line-height: 70rpx;
+    > view {
+      margin-right: 20rpx;
+    }
+  }
+  > .comment_content {
+    min-height: 40rpx;
+    text {
+      line-height: 45rpx;
+    }
+  }
+}
+</style>
+<template>
+  <view class="comment_bar">
+    <view class="commenter_info">
+      <view class="cter_info marginL20">
+        <view class="cter_name color_bold">
+          <text>狮子</text>
+        </view>
+        <view class="cter_from_system">
+          <text class="fz24">Mac OS X</text>
+        </view>
+        <view class="cter_from_brower">
+          <text class="fz24">Chrome</text>
+        </view>
+      </view>
+      <view class="cter_id marginR20">#1001</view>
+    </view>
+    <view class="comment_content marginLR20">
+      <text class="hidden_text_m_3">这逼真棒 为你点赞</text>
+      <repeat for="{{comment.reply}}" index="index" item="item" key="key">
+        <view class="comment_reply">
+          <view class="reply_name">
+            <text><text class="color_bold">Andy</text> 回复 #1001 @狮子：</text>
+          </view>
+          <view class="reply_content">
+            <text class="hidden_text_m_3">你也很棒啊</text>
+          </view>
+        </view>
+      </repeat>
+    </view>
+    <view class="comment_other_info marginLR20">
+      <view class="reply_time">
+        <text>10天前</text>
+      </view>
+      <view>
+        <text>回复</text>
+      </view>
+      <view>
+        <text>顶[2]</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class CommentBar extends wepy.component {
+  props = {
+    comment: {
+      type: Object,
+      default: {}
+    }
+  };
+}
+</script>

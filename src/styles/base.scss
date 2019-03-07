@@ -19,6 +19,11 @@ page {
   white-space: nowrap;
 }
 
+.color_bold {
+  font-weight: bold;
+  color: rgb(17, 13, 13);
+}
+
 .hidden_text_m_3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -90,6 +95,19 @@ page {
 
 .marginLR20 {
   margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+
+.marginLR10 {
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+}
+
+.marginR20 {
+  margin-right: 20rpx;
+}
+
+.marginL20 {
   margin-left: 20rpx;
 }
 

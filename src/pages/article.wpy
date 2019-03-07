@@ -31,6 +31,21 @@
       }
     }
   }
+  > .article_comment {
+    > .comment_top_bar {
+      display: flex;
+      flex-direction: row;
+      border-bottom: 1px solid #ccc;
+      > view {
+        margin: 30rpx 20rpx 30rpx 0;
+        > text {
+          padding: 10rpx 20rpx;
+          background-color: #e6e6e6;
+          border-radius: 5rpx;
+        }
+      }
+    }
+  }
 }
 </style>
 <template>
@@ -59,16 +74,28 @@
       </repeat>
     </view>
     <view class="article_comment">
+      <view class="comment_top_bar marginLR20">
+        <view class="comment_count fz26">
+          <text>8 条看法</text>
+        </view>
+        <view class="likes_count fz26">
+          <text><text class="iconfont icon-paytype fz30"></text>  21 人喜欢</text>
+        </view>
+        <view class="pay_money fz26">
+          <text>赏</text>
+        </view>
+      </view>
       <repeat for="{{comments.data}}" index="index" item="item" key="index">
-
+        <commentBar class="marginLR20 marginT30" :comment.sync="item"></commentBar>
       </repeat>
-      <view class="send_comment"></view>
+      <view class="send_comment marginLR20"></view>
     </view>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import commentBar from '../components/commentBar';
   const WxParse = require('../wxParse/wxParse.js')
   export default class Article extends wepy.page {
     data = {
@@ -94,11 +121,24 @@
         likes: 2000,
         comment: 2000,
         data: [
+          { 
+            reply: [
+              {
+
+              },
+            ]
+          },
+          {
+            
+          },
           {
             
           }
         ]
       }
+    }
+    components = {
+      commentBar,
     }
     methods = {
       redirectToArticle(id) {
