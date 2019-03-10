@@ -1,0 +1,25 @@
+<style lang="scss">
+.bottom_bar {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100rpx;
+  background-color: #ffffff;
+  width: 100%;
+  margin-top: 20rpx;
+  > view {
+    text-align: center;
+  } 
+}
+</style>
+<template>
+  <view class="bottom_bar">
+    <view class="fz26">design by andy</view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class bottomBar extends wepy.component {
+}
+</script>

@@ -31,3 +31,13 @@ export const TOPTITLE = [
  * 本地缓存历史记录
  */
 export const SEARCH_HISTORYS = "searchHistorys"
+
+/**
+ * 评论输入内容
+ */
+export const COMMENT_TYPE = {
+  name: 'name',
+  email: 'email',
+  url: 'url',
+  content: 'content',
+}

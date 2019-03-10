@@ -45,6 +45,38 @@
         }
       }
     }
+    > .send_comment {
+      border-top: 1px solid #ccc;
+      input {
+        width: 80%;
+        padding: 10rpx 0 10rpx 20rpx;
+      }
+      textarea {
+        height: 200rpx;
+        padding: 10rpx;
+        width: 95%;
+      }
+      input, textarea {
+        font-size: 26rpx;
+        background-color: rgba(240, 240, 240, 0.959);
+        margin-top: 50rpx;
+        border-radius: 5rpx;
+      }
+      > .send_button {
+        height: 80rpx;
+        > .send_button_text {
+          margin-top: 30rpx;
+          border-radius: 5rpx;
+          padding: 10rpx;
+          background-color: rgba(134, 164, 230, 0.959);
+          line-height: 80rpx;
+          text-align: center;
+          color: #fff;
+          width: 95%;
+          display: block;
+        }
+      }
+    }
   }
 }
 </style>
@@ -86,16 +118,40 @@
         </view>
       </view>
       <repeat for="{{comments.data}}" index="index" item="item" key="index">
-        <commentBar class="marginLR20 marginT30" :comment.sync="item"></commentBar>
+        <commentBar 
+        class="marginLR20 marginT30 {{index === comments.data.length-1 ? 'marginB30' : ''}}" 
+        :comment.sync="item"></commentBar>
       </repeat>
-      <view class="send_comment marginLR20"></view>
+      <view class="send_comment marginLR20">
+        <view class="send_name">
+          <input type="text" @input="commentInput('name')" placeholder="名字*" maxlength="{{20}}">
+        </view>
+        <view class="send_email">
+          <input type="text" @input="commentInput('email')" placeholder="邮箱*" maxlength="{{50}}">
+        </view>
+        <view class="send_url">
+          <input type="text" @input="commentInput('url')" placeholder="网址" maxlength="{{50}}">
+        </view>
+        <view class="send_content">
+          <textarea name="send_content" @input="commentInput('content')" id="" cols="30" rows="10" placeholder="愿你的见解一针见血" placeholder-class="marginL20">
+
+          </textarea>
+        </view>
+        <view class="send_button">
+          <text class="fz32 send_button_text" @tap="sendComment">发射</text>
+        </view>
+      </view>
+      <view style="height: 30rpx"></view>
     </view>
+    <bottomBar></bottomBar>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
   import commentBar from '../components/commentBar';
+  import bottomBar from '../components/bottomBar';
+  import { COMMENT_TYPE } from '../utils/constant';
   const WxParse = require('../wxParse/wxParse.js')
   export default class Article extends wepy.page {
     data = {
@@ -135,14 +191,52 @@
             
           }
         ]
+      },
+      sendData: {
+        name: '',
+        email: '',
+        url: '',
+        content: '',
       }
     }
     components = {
       commentBar,
+      bottomBar,
     }
     methods = {
       redirectToArticle(id) {
         console.log(id);
+      },
+      sendComment() {
+        if(!this.sendData.name) {
+          return global.tip.alert('请输入姓名');
+        }
+        if(!this.sendData.email) {
+          return global.tip.alert('请输入邮箱');
+        }
+        if(!this.sendData.content) {
+          return global.tip.alert('请输入评论内容');
+        }
+        // 发送评论
+        global.tip.success('发送成功');
+      },
+      commentInput(type, data) {
+        switch(type) {
+          case COMMENT_TYPE.name:
+            this.sendData.name = data.detail.value;
+            break;
+          case COMMENT_TYPE.email:
+            this.sendData.email = data.detail.value;
+            break;
+          case COMMENT_TYPE.url:
+            this.sendData.url = data.detail.value;
+            break;
+          case COMMENT_TYPE.content:
+            this.sendData.content = data.detail.value;
+            break;
+          default:
+            break;
+        }
       }
     }
     onLoad() {
