@@ -115,6 +115,7 @@
           @input="searchNameInput"
           maxlength="50"
           focus="true"
+          value="{{searchContent}}"
         />
       </view>
       <button class="s_button" @tap="doSearch({{false}})" plain="true">搜索</button>
@@ -236,18 +237,32 @@ export default class SearchView extends wepy.page {
       global.tip.alert('请选择搜索条件！');
     } else {
       if (!isHistory && this.searchContent) {
-        if (this.historys.length >= 5) {
-          // 达到记录上限
-          this.historys.splice(5, 1);
-        }
-        this.historys.push({
-          name: this.searchContent,
-          categoryIds: this.categoryIds
+        // 判断当前搜索是否在记录中存在
+        const isLive = this.historys.find((item) => {
+          return item.name === this.searchContent;
         });
+        if(!isLive) {
+          if (this.historys.length >= 5) {
+            // 达到记录上限
+            this.historys.splice(5, 1);
+          }
+          this.historys.push({
+            name: this.searchContent,
+            categoryIds: this.categoryIds
+          });
+        }
       }
+      // 搜索
+      
       // 更新本地缓存
       wx.setStorageSync(SEARCH_HISTORYS, this.historys);
-      // 搜索
+
+      // 清空搜索筐内容
+      this.searchContent = '';
+      this.categoryIds = [];
+      this.isActives = this.isActives.map(() => {
+        return 0;
+      })
     }
   }
   onLoad() {
